@@ -32,6 +32,6 @@ resource "aws_default_security_group" "default" {
 
 resource "aws_internet_gateway" "default" {
   count  = var.enabled ? 0 : 1
-  vpc_id = element(aws_vpc.default.id,count.index)
+  vpc_id = aws_vpc.default[count.index].id
   tags   = module.label.tags
 }

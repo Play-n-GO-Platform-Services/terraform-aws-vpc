@@ -4,7 +4,7 @@ output "igw_id" {
 }
 
 output "vpc_id" {
-  value       = aws_vpc.default.id
+  value       = element(concat(aws_vpc.default.id,list("")),0)
   description = "The ID of the VPC"
 }
 
