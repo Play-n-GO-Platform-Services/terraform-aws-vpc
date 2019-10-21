@@ -1,10 +1,10 @@
 output "igw_id" {
-  value       = aws_internet_gateway.default.id
+  value       = aws_internet_gateway.default[count.index].id
   description = "The ID of the Internet Gateway"
 }
 
 output "vpc_id" {
-  value       = element(concat(aws_vpc.default.id,list("")),0)
+  value       = aws_vpc.default[count.index].id
   description = "The ID of the VPC"
 }
 
