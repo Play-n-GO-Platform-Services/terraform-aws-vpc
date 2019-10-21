@@ -1,5 +1,5 @@
 output "igw_id" {
-  value       = aws_internet_gateway.default[count.index].id
+  value       = element(concat(aws_internet_gateway.default.*.id,list("")),0)
   description = "The ID of the Internet Gateway"
 }
 
