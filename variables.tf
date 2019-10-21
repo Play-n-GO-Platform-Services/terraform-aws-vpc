@@ -68,5 +68,9 @@ variable "enable_classiclink_dns_support" {
   default     = false
 }
 
-
+variable "enabled" {
+  type = bool
+  default = true
+  description = " The resources in the module are created if the flag is enabled"
+}
 
