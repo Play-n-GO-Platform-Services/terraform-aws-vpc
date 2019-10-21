@@ -70,7 +70,7 @@ variable "enable_classiclink_dns_support" {
 
 variable "enabled" {
   type = bool
-  default = true
+  default = false
   description = " The resources in the module are created if the flag is enabled"
 }
 
