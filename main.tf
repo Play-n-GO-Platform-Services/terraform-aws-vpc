@@ -10,7 +10,7 @@ module "label" {
 }
 
 resource "aws_vpc" "default" {
-  count                            = var.enabled ? 0 : 1
+  count                            = var.enabled ? 1 : 0
   cidr_block                       = var.cidr_block
   instance_tenancy                 = var.instance_tenancy
   enable_dns_hostnames             = var.enable_dns_hostnames
@@ -23,7 +23,7 @@ resource "aws_vpc" "default" {
 
 # If `aws_default_security_group` is not defined, it would be created implicitly with access `0.0.0.0/0`
 resource "aws_default_security_group" "default" {
-  count  = var.enabled ? 0 : 1
+  count  = var.enabled ? 1 : 0
   vpc_id = aws_vpc.default[count.index].id
   tags = {
     Name = "Default Security Group"
@@ -31,7 +31,7 @@ resource "aws_default_security_group" "default" {
 }
 
 resource "aws_internet_gateway" "default" {
-  count  = var.enabled ? 0 : 1
+  count  = var.enabled ? 1 : 0
   vpc_id = aws_vpc.default[count.index].id
   tags   = module.label.tags
 }
