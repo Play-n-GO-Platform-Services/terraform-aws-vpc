@@ -24,7 +24,7 @@ resource "aws_vpc" "default" {
 # If `aws_default_security_group` is not defined, it would be created implicitly with access `0.0.0.0/0`
 resource "aws_default_security_group" "default" {
   count  = var.enabled ? 1 : 0
-  vpc_id = element(aws_vpc.default.*.id,0)
+  vpc_id = element(concat(aws_vpc.default.*.id,list("")),0)
   tags = {
     Name = "Default Security Group"
   }
@@ -32,6 +32,6 @@ resource "aws_default_security_group" "default" {
 
 resource "aws_internet_gateway" "default" {
   count  = var.enabled ? 1 : 0
-  vpc_id = element(aws_vpc.default.*.id,0)
+  vpc_id = element(concat(aws_vpc.default.*.id,list("")),0)
   tags   = module.label.tags
 }
