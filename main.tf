@@ -9,7 +9,7 @@ module "label" {
   enabled    = var.enabled
 }
 
-resource "aws_vpc" "default" {
+resource "aws_vpc" "emr" {
   count                            = var.enabled ? 1 : 0
   cidr_block                       = var.cidr_block
   instance_tenancy                 = var.instance_tenancy
@@ -22,16 +22,16 @@ resource "aws_vpc" "default" {
 }
 
 # If `aws_default_security_group` is not defined, it would be created implicitly with access `0.0.0.0/0`
-resource "aws_default_security_group" "default" {
+resource "aws_default_security_group" "emr" {
   count  = var.enabled ? 1 : 0
-  vpc_id = element(concat(aws_vpc.default.*.id,list("")),0)
+  vpc_id = element(concat(aws_vpc.emr.*.id,list("")),0)
   tags = {
     Name = "Default Security Group"
   }
 }
 
-resource "aws_internet_gateway" "default" {
+resource "aws_internet_gateway" "emr" {
   count  = var.enabled ? 1 : 0
-  vpc_id = element(concat(aws_vpc.default.*.id,list("")),0)
+  vpc_id = element(concat(aws_vpc.emr.*.id,list("")),0)
   tags   = module.label.tags
 }
